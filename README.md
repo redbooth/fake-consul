@@ -1,6 +1,9 @@
 # FakeConsul
 
-Fakes a consul server. Usecase is for feature specs using Diplomat client.
+Fakes a consul server. Usecase is for feature specs that need to maintain state written to consul kv store.
+
+- Adds simple consul client that fakes the consul server and provides state in an in-memory Hash.
+- Client API conforms to that of [Diplomat::Kv](http://www.rubydoc.info/github/WeAreFarmGeek/diplomat/Diplomat/Kv) (See source here: [Diplomat](https://github.com/WeAreFarmGeek/diplomat) )
 
 ## Installation
 

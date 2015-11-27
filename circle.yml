@@ -1,0 +1,10 @@
+machine:
+  ruby:
+    version: 2.1.2
+
+dependencies:
+  pre:
+
+test:
+  override:
+    - bundle exec rake test
