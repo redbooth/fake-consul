@@ -5,6 +5,8 @@ Fakes a consul server. Usecase is for feature specs that need to maintain state 
 - Adds simple consul client that fakes the consul server and provides state in an in-memory Hash.
 - Client API conforms to that of [Diplomat::Kv](http://www.rubydoc.info/github/WeAreFarmGeek/diplomat/Diplomat/Kv) (See source here: [Diplomat](https://github.com/WeAreFarmGeek/diplomat) )
 
+[![Build Status](https://circleci.com/gh/redbooth/fake_consul/tree/master.png)](https://circleci.com/gh/redbooth/fake_consul)
+
 ## Installation
 
 Add this line to your application's Gemfile:
