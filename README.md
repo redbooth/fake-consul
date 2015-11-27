@@ -23,6 +23,7 @@ Or install it yourself as:
 In your specs:
 
 ```let(:fake_kv_store) { FakeConsul::Server.new }```
+
 ```before { allow(my_instance_or_class).to receive(:kv_client).and_return(fake_kv_store) }```
 
 ## Contributing
