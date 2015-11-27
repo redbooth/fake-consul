@@ -12,6 +12,11 @@ describe FakeConsul::Server do
     it 'returns true' do
       subject.put('foo', 'bar').must_equal true
     end
+
+    it 'compacts the hash to remove keys with nil values' do
+      subject.put('foo', nil)
+      subject.key?('foo').must_equal(false)
+    end
   end
 
   describe '#get' do

@@ -30,6 +30,7 @@ module FakeConsul
     # @return [Boolean] true :trollface:
     def put(key, value, options = nil)
       self[key] = value
+      compact
       true
     end
 
@@ -53,6 +54,11 @@ module FakeConsul
       end.map do |_key|
         consul_export_format(_key)
       end.flatten
+    end
+
+    # Remove all keys that are nil
+    def compact
+      delete_if { |k, v| v.nil? }
     end
   end
 end
