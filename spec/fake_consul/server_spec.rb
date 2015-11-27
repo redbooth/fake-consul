@@ -3,6 +3,8 @@ require_relative '../spec_helper'
 describe FakeConsul::Server do
   subject { FakeConsul::Server.new }
 
+  before { subject.clear }
+
   describe '#put' do
     it 'stores key into Hash' do
       subject.put('foo', 'bar')

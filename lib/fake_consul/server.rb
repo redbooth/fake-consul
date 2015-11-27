@@ -1,7 +1,12 @@
 require "active_support/hash_with_indifferent_access"
+require "tmpdir"
 
 module FakeConsul
   class Server < HashWithIndifferentAccess
+
+    def initialize
+      restore!
+    end
 
     # Fake get
     #
@@ -33,10 +38,44 @@ module FakeConsul
     def put(key, value, options = nil)
       self[key] = value
       compact
+      persist!
       true
     end
 
+    # Clear current data
+    # and delete backing marshalling file
+    def clear
+      super
+      return unless File.exist?(db_file)
+      File.delete(db_file)
+    end
+
     private
+
+    # Persist current data to marshalled file
+    def persist!
+      File.open(db_file, 'w+') do |f|
+        Marshal.dump(self, f)
+      end
+    end
+
+    # Restore hash from marshalled data
+    def restore!
+      return unless File.exist?(db_file)
+
+      File.open(db_file) do |f|
+        restored_data = Marshal.load(f)
+        self.clear
+        self.merge!(restored_data)
+      end
+    end
+
+    # Path to marshalled file
+    #
+    # @return [String]
+    def db_file
+      "#{Dir.tmpdir}#{File::SEPARATOR}.fake_consul.m"
+    end
 
     # Returns the keys in the following format:
     #  [{key: `key`, value: 'bar'}]
