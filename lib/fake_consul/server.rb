@@ -42,6 +42,20 @@ module FakeConsul
       true
     end
 
+    # Fake delete
+    #
+    # Performs no http requests but deletes data from local hash
+    #
+    # @param key [String]
+    # @param options [Hash] unused/unimplemented
+    # @return [Boolean] true :trollface:
+    def delete(key, options = nil)
+      super(key)
+      compact
+      persist!
+      true
+    end
+
     # Clear current data
     # and delete backing marshalling file
     def clear

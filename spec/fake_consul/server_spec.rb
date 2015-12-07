@@ -21,6 +21,24 @@ describe FakeConsul::Server do
     end
   end
 
+  describe '#delete' do
+    before { subject.put('foo', 'bar') }
+
+    it 'delete key from Hash' do
+      subject.delete('foo')
+      subject.key?('foo').must_equal false
+    end
+
+    it 'returns true' do
+      subject.put('foo', 'bar').must_equal true
+    end
+
+    it 'compacts the hash to remove keys with nil values' do
+      subject.put('foo', nil)
+      subject.key?('foo').must_equal(false)
+    end
+  end
+
   describe '#get' do
     describe 'simple (no recursing)' do
       before { subject.put('foo', 'bar') }
